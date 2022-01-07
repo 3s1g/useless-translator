@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 function fetch_result(translation_string, source_lang, target_lang) {

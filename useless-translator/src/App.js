@@ -3,8 +3,9 @@ import { BiArrowFromLeft } from 'react-icons/bi'
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  let languages = ['zh', 'fr', 'de', 'es', 'ms'];
-
+  const languages = ['af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'bs', 'bg', 'ca', 'ceb', 'zh', 'co', 'hr','cs', 'da', 'nl', 'eo', 'et', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gu', 'ht', 'ha', 'he', 'hi', 'hu', 'is', 'ig', 'id', 'ga', 'it', 'ja', 'jv', 'kn', 'kk', 'km', 'rw', 'ko', 'ku', 'ky', 'lo', 'lv', 'lt', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mn', 'my', 'ne', 'no', 'ny', 'or', 'ps', 'fa', 'pl', 'pt', 'pa', 'ro', 'ru', 'sm', 'gd', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tl', 'tg', 'ta', 'tt', 'te', 'th', 'tr', 'tk', 'uk', 'ur', 'ug', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu'];
+  
+  const [language_array, set_language_array] = useState(languages);
   const [input, set_input] = useState("");
   const [output, set_output] = useState("");
   const [temp, set_temp] = useState("");
@@ -16,7 +17,7 @@ function App() {
 
   useEffect(() => {
     async function translated_data() {
-      let response = await fetch_result(temp, 'en', languages[0]);
+      let response = await fetch_result(temp, 'en', language_array[0]);
       response = await response.json();
       const translatedText = response.data.translations[0].translatedText;
       set_output_1(translatedText);
@@ -26,7 +27,7 @@ function App() {
 
   useEffect(() => {
     async function translated_data() {
-      let response = await fetch_result(output_1, languages[0], languages[1]);
+      let response = await fetch_result(output_1, language_array[0], language_array[1]);
       response = await response.json();
       const translatedText = response.data.translations[0].translatedText;
       set_output_2(translatedText);
@@ -36,7 +37,7 @@ function App() {
   
   useEffect(() => {
     async function translated_data() {
-      let response = await fetch_result(output_2, languages[1], languages[2]);
+      let response = await fetch_result(output_2, language_array[1], language_array[2]);
       response = await response.json();
       const translatedText = response.data.translations[0].translatedText;
       set_output_3(translatedText);
@@ -46,7 +47,7 @@ function App() {
 
   useEffect(() => {
     async function translated_data() {
-      let response = await fetch_result(output_3, languages[2], languages[3]);
+      let response = await fetch_result(output_3, language_array[2], language_array[3]);
       response = await response.json();
       const translatedText = response.data.translations[0].translatedText;
       set_output_4(translatedText);
@@ -56,7 +57,7 @@ function App() {
 
   useEffect(() => {
     async function translated_data() {
-      let response = await fetch_result(output_4, languages[3], 'en');
+      let response = await fetch_result(output_4, language_array[3], 'en');
       response = await response.json();
       const translatedText = response.data.translations[0].translatedText;
       set_output_5(translatedText);
@@ -66,21 +67,21 @@ function App() {
 
   function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
-  
+
     // While there remain elements to shuffle...
-    while (currentIndex !== 0) {
-  
+    while (currentIndex != 0) {
+
       // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-  
+
       // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
   }
+
+  return array;
+}
 
   function fetch_result(translation_string, source_lang, target_lang) {
     return fetch("https://translation.googleapis.com/language/translate/v2?key=AIzaSyCijnhZfoTUvLT9AueRXzHxYURWNXFYjkw", {
@@ -101,7 +102,8 @@ function App() {
   }
 
   function translate() {
-    languages = shuffle(languages);
+    set_language_array(shuffle(languages));
+    console.log(language_array);
     set_temp(input);
     }
 

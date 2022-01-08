@@ -13,5 +13,5 @@ Our GOOD Translator!
 * Supports over 30 languages
 * It's Free
 
-This App was crated using React
+This App was created using React
 
